@@ -24,8 +24,16 @@ todos = [
     {
         "id":"2",
         "item":"make sites with go"
+    },
+    {
+        "id":"3",
+        "item":"learn devops"
     }
 ]
+
+@app.get("/todo", tags=["todos"])
+async def get_todos() -> dict:
+    return {"data": todos}
 
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
