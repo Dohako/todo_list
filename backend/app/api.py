@@ -16,6 +16,17 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+todos = [
+    {
+        "id":"1",
+        "item":"Make site with python"
+    },
+    {
+        "id":"2",
+        "item":"make sites with go"
+    }
+]
+
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Welcome to todo list"}
