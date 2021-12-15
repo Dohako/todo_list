@@ -5,12 +5,14 @@ app = FastAPI()
 
 origins = [
     "http://localhost:3000",
-    "localhost:3000"
+    "localhost:3000",
+    "http://localhost:8080",
+    "localhost:8080"
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -48,7 +50,7 @@ async def add_todo(todo: dict) -> dict:
     }
 
 @app.put("/todo/{id}", tags=["todos"])
-async def update_todo(id:int, body: dict):
+async def update_todo(id:int, body: dict) -> dict:
     for todo in todos:
         if int(todo["id"]) == id:
             todo["item"] = body["item"]
