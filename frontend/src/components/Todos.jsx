@@ -127,6 +127,23 @@ function UpdateTodo({ item, id }) {
     )
 }
 
+function DeleteTodo({id}) {
+    const {fetchTodos} = React.useContext(TodosContext)
+
+    const deleteTodo = async () => {
+        await fetch(`http://localhost:8000/todo/${id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: { "id": id }
+        })
+        await fetchTodos()
+    }
+
+    return (
+        <Button h="1.5rem" size="sm" onClick={deleteTodo}>Delete todo</Button>
+    )
+}
+
 function TodoHelper({ item, id, fetchTodos }) {
     return (
         <Box p={1} shadow="sm">
@@ -135,6 +152,7 @@ function TodoHelper({ item, id, fetchTodos }) {
                     {item}
                     <Flex align="end">
                         <UpdateTodo item={item} id={id} fetchTodos={fetchTodos} />
+                        <DeleteTodo item={item} id={id} fetchTodos={fetchTodos} />
                     </Flex>
                 </Text>
             </Flex>
